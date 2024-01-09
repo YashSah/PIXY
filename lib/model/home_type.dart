@@ -1,4 +1,9 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
+import 'package:pixy/screen/feature/chatbot_feature.dart';
+import 'package:pixy/screen/feature/translator_feature.dart';
+
+import '../screen/feature/image_feature.dart';
 
 enum HomeType { aiChatBot, aiImage, aiTranslator }
 
@@ -31,6 +36,13 @@ extension MyHomeType on HomeType {
     HomeType.aiChatBot => EdgeInsets.zero,
     HomeType.aiImage => const EdgeInsets.all(20),
     HomeType.aiTranslator => EdgeInsets.zero,
+  };
+
+  //for navigation
+  VoidCallback get onTap => switch(this) {
+    HomeType.aiChatBot => () => Get.to(() => const ChatBotFeature()),
+    HomeType.aiImage => () => Get.to(() => const ImageFeature()),
+    HomeType.aiTranslator => () => Get.to(() => const TranslatorFeature()),
   };
 
 }

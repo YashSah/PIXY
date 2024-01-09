@@ -10,58 +10,63 @@ class HomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Animate.restartOnHotReload = true;
+
     return Card(
       color: Colors.blue.withOpacity(0.2),
       elevation: 0,
       margin: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.02),
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: homeType.leftAlign ? Row(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.35,
-            padding: homeType.padding,
-            child: Lottie.asset(
-              "assets/animations/${homeType.lottie}",
+      child: InkWell(
+        borderRadius: BorderRadius.circular(20),
+        onTap: homeType.onTap,
+        child: homeType.leftAlign ? Row(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.35,
+              padding: homeType.padding,
+              child: Lottie.asset(
+                "assets/animations/${homeType.lottie}",
+              ),
             ),
-          ),
 
-          const Spacer(),
+            const Spacer(),
 
-          Text(
-            homeType.title,
-            style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w500,
-              letterSpacing: 1,
-          )),
+            Text(
+                homeType.title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 1,
+                )),
 
-          const Spacer(flex: 2,),
-        ],
-      ) :
-      Row(
-        children: [
+            const Spacer(flex: 2,),
+          ],
+        ) :
+        Row(
+          children: [
 
-          const Spacer(flex: 2,),
+            const Spacer(flex: 2,),
 
-          Text(
-              homeType.title,
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w500,
-                letterSpacing: 1,
-              )),
+            Text(
+                homeType.title,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                  letterSpacing: 1,
+                )),
 
-          const Spacer(),
+            const Spacer(),
 
-          Container(
-            width: MediaQuery.of(context).size.width * 0.35,
-            padding: homeType.padding,
-            child: Lottie.asset(
-              "assets/animations/${homeType.lottie}",
+            Container(
+              width: MediaQuery.of(context).size.width * 0.35,
+              padding: homeType.padding,
+              child: Lottie.asset(
+                "assets/animations/${homeType.lottie}",
+              ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
+      )
     ).animate().fade(duration: 1.seconds, curve: Curves.easeIn);
   }
 }

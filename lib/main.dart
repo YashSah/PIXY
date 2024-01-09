@@ -26,9 +26,20 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'PIXY',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: SplashScreen(),
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          elevation: 1,
+          centerTitle: true,
+          backgroundColor: Colors.white,
+            iconTheme: IconThemeData(color: Colors.blue),
+            titleTextStyle: TextStyle(
+              color: Colors.blue,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
       ),
+      home: SplashScreen(),
     );
   }
 }
