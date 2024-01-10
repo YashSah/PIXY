@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
+import 'package:pixy/controller/image_controller.dart';
+import 'package:pixy/widget/custom_btn.dart';
 
 class ImageFeature extends StatefulWidget {
   const ImageFeature({super.key});
@@ -8,6 +12,8 @@ class ImageFeature extends StatefulWidget {
 }
 
 class _ImageFeatureState extends State<ImageFeature> {
+  final _c = ImageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,8 +21,39 @@ class _ImageFeatureState extends State<ImageFeature> {
         title: const Text("AI Image Creator"),
       ),
       body: ListView(
+        physics: const BouncingScrollPhysics(),
+        padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.02,
+          bottom: MediaQuery.of(context).size.height * 0.1,
+          left: MediaQuery.of(context).size.width * 0.04,
+          right: MediaQuery.of(context).size.width * 0.04,
+        ),
         children: [
+          TextFormField(
+            controller: _c.textC,
+            textAlign: TextAlign.center,
+            minLines: 2,
+            maxLines: null,
+            onTapOutside: (e) => FocusScope.of(context).unfocus(),
+            decoration: InputDecoration(
+              hintText: "Imagine something wonderful & innovative\n Type here & I will create it for you 😄",
+              hintStyle: const TextStyle(fontSize: 14),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
 
+          Container(
+            height: MediaQuery.of(context).size.height * 0.5,
+            alignment: Alignment.center,
+            child: Lottie.asset(
+              "assets/animations/ai_play.json",
+              height: MediaQuery.of(context).size.height * 0.3,
+            ),
+          ),
+          
+          CustomBtn(onTap: () {}, text: 'Create'),
         ],
       ),
     );

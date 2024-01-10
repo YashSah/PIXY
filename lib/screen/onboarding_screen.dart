@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pixy/model/onboard.dart';
 import 'package:pixy/screen/home_screen.dart';
+import 'package:pixy/widget/custom_btn.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -66,22 +67,14 @@ class OnboardingScreen extends StatelessWidget {
 
             const Spacer(),
 
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(shape: StadiumBorder(), elevation: 0, minimumSize: Size(MediaQuery.of(context).size.width * 0.4, 50)),
-                onPressed: () {
-                  if(isLast) {
-                    Get.offAll(HomeScreen());
-                  }
-                  else{
-                    c.nextPage(duration: Duration(milliseconds: 600), curve: Curves.ease);
-                  }
-                }, child: Text(
-               isLast ? "Finish" : "Next",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            )),
+          CustomBtn(onTap:  () {
+            if(isLast) {
+              Get.offAll(HomeScreen());
+            } else {
+              c.nextPage(
+              duration: Duration(milliseconds: 600), curve: Curves.ease);
+            }
+            }, text: isLast ? "Finish" : "Next",),
 
             const Spacer(flex: 2,),
           ],
