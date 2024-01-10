@@ -31,6 +31,8 @@ class _ChatBotFeatureState extends State<ChatBotFeature> {
               textAlign: TextAlign.center,
               onTapOutside: (e) => FocusScope.of(context).unfocus(),
               decoration: InputDecoration(
+                fillColor: Colors.white,
+                filled: true,
                 isDense: true,
                 hintText: "Ask me anything you want...",
                 hintStyle: const TextStyle(fontSize: 14),
@@ -58,6 +60,7 @@ class _ChatBotFeatureState extends State<ChatBotFeature> {
       ),
 
       body: Obx(() => ListView(
+        physics: const BouncingScrollPhysics(),
         padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.02,
           bottom: MediaQuery.of(context).size.height * 0.1,
