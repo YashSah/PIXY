@@ -49,6 +49,7 @@ dependencies:
 
   #for custom animations
   flutter_animate: ^4.3.0
+  animated_text_kit: ^4.2.2
 
   #for API call
   http: ^1.1.0

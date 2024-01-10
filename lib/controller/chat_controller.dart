@@ -8,6 +8,8 @@ class ChatController extends GetxController{
 
   final textC = TextEditingController();
 
+  final scrollC = ScrollController();
+
   final list = <Message>[Message(msg: "let's get this conversation rolling! How can I be of service?", msgType: MessageType.bot)].obs;
 
   Future<void> askQuestion() async {
@@ -15,14 +17,22 @@ class ChatController extends GetxController{
 
       //user
       list.add(Message(msg: textC.text, msgType: MessageType.user));
-      list.add(Message(msg: 'Please wait...', msgType: MessageType.bot));
+      list.add(Message(msg: '', msgType: MessageType.bot));
+      _scrollDown();
 
       final res = await APIs.getAnswer(textC.text);
 
       //chatbot
       list.removeLast();
       list.add(Message(msg: res, msgType: MessageType.bot));
+      _scrollDown();
+
       textC.clear();
     }
+  }
+
+  //for moving to the end message
+  void _scrollDown() {
+    scrollC.animateTo(scrollC.position.maxScrollExtent, duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 }
