@@ -58,6 +58,12 @@ dependencies:
   dart_openai: ^5.0.0
   cached_network_image: ^3.3.1
 
+  #for saving Image to gallery
+  gallery_saver_updated: ^3.0.0
+
+  #for sharing image
+  share_plus: ^7.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

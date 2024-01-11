@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pixy/widget/custom_loading.dart';
 
 class MyDialog {
 
@@ -16,6 +17,11 @@ class MyDialog {
   //error
   static void error(String msg) {
     Get.snackbar('Error', msg, backgroundColor: Colors.redAccent.withOpacity(0.6), colorText: Colors.white);
+  }
+
+  //loading dialog
+  static void showLoadingDialog() {
+    Get.dialog(const Center(child: CustomLoading(),));
   }
 
 }
