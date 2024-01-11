@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixy/apis/apis.dart';
+import 'package:pixy/helper/my_dialogs.dart';
 
 import '../model/message.dart';
 
@@ -28,6 +29,8 @@ class ChatController extends GetxController{
       _scrollDown();
 
       textC.clear();
+    } else {
+      MyDialog.info("Looks like you forgot to type something. Please enter a message.");
     }
   }
 
