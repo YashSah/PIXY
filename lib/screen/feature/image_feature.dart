@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:pixy/controller/image_controller.dart';
 import 'package:pixy/widget/custom_btn.dart';
+
+import '../../widget/custom_loading.dart';
 
 class ImageFeature extends StatefulWidget {
   const ImageFeature({super.key});
@@ -47,15 +50,28 @@ class _ImageFeatureState extends State<ImageFeature> {
           Container(
             height: MediaQuery.of(context).size.height * 0.5,
             alignment: Alignment.center,
-            child: Lottie.asset(
-              "assets/animations/ai_play.json",
-              height: MediaQuery.of(context).size.height * 0.3,
-            ),
+            child: Obx(() => _aiImage()),
           ),
           
-          CustomBtn(onTap: () {}, text: 'Create'),
+          CustomBtn(onTap: _c.createAIImage, text: 'Create'),
         ],
       ),
     );
   }
+
+  Widget _aiImage() => ClipRRect(
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    child: switch(_c.status.value) {
+      Status.none => Lottie.asset(
+        "assets/animations/ai_play.json",
+        height: MediaQuery.of(context).size.height * 0.3,
+      ),
+      Status.complete => CachedNetworkImage(
+        imageUrl: _c.url,
+        placeholder: (context, url) => const CustomLoading(),
+        errorWidget: (context, url, error) => const SizedBox(),
+      ),
+      Status.loading => const CustomLoading()
+    },
+  );
 }
