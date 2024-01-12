@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:pixy/controller/translate_controller.dart';
 import 'package:pixy/widget/custom_btn.dart';
+import 'package:pixy/widget/language_sheet.dart';
 
 class TranslatorFeature extends StatefulWidget {
   const TranslatorFeature({super.key});
@@ -31,15 +33,19 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //from language
-              Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width * 0.4,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue),
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
+              InkWell(
+                onTap: () => Get.bottomSheet(LanguageSheet(c: _c, s: _c.from,)),
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                  ),
+                  child: Obx(() => Text(_c.from.isEmpty ? "Auto" : _c.from.value)),
                 ),
-                child: const Text("Auto"),
               ),
               
               IconButton(
@@ -49,15 +55,19 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
               ),
 
               //to language
-              Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width * 0.4,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.blue),
-                  borderRadius: const BorderRadius.all(Radius.circular(15)),
+              InkWell(
+                onTap: () => Get.bottomSheet(LanguageSheet(c: _c, s: _c.to,)),
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: const BorderRadius.all(Radius.circular(15)),
+                  ),
+                  child: Obx(() => Text(_c.to.isEmpty ? "To" : _c.to.value)),
                 ),
-                child: Text("To"),
               ),
             ],
           ),
