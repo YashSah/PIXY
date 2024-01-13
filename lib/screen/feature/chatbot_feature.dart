@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixy/controller/chat_controller.dart';
+import 'package:pixy/main.dart';
 import 'package:pixy/widget/message_card.dart';
 
 class ChatBotFeature extends StatefulWidget {
@@ -31,7 +32,7 @@ class _ChatBotFeatureState extends State<ChatBotFeature> {
               textAlign: TextAlign.center,
               onTapOutside: (e) => FocusScope.of(context).unfocus(),
               decoration: InputDecoration(
-                fillColor: Colors.white,
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
                 filled: true,
                 isDense: true,
                 hintText: "Ask me anything you want...",
@@ -46,6 +47,7 @@ class _ChatBotFeatureState extends State<ChatBotFeature> {
 
             CircleAvatar(
               radius: 24,
+              backgroundColor: Theme.of(context).buttonColor,
               child: IconButton(
                 onPressed: _c.askQuestion,
                 icon: const  Icon(

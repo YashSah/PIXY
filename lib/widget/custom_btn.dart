@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pixy/main.dart';
 
 class CustomBtn extends StatelessWidget {
   final String text;
@@ -12,6 +13,7 @@ class CustomBtn extends StatelessWidget {
           style: ElevatedButton.styleFrom(
               shape: StadiumBorder(),
               elevation: 0,
+              backgroundColor: Theme.of(context).buttonColor,
               minimumSize: Size(MediaQuery.of(context).size.width * 0.4, 50),
           ),
           onPressed: onTap,

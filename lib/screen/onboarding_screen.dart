@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pixy/main.dart';
 import 'package:pixy/model/onboard.dart';
 import 'package:pixy/screen/home_screen.dart';
 import 'package:pixy/widget/custom_btn.dart';
@@ -49,7 +50,7 @@ class OnboardingScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 13.5,
                   letterSpacing: 0.5,
-                  color: Colors.black54,
+                  color: Theme.of(context).lightTextColor,
                 ),
               ),
             ),

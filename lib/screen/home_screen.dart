@@ -29,16 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 1,
-        centerTitle: true,
-        backgroundColor: Colors.white,
         title: const Text(
           "PIXY",
-          style: TextStyle(
-            color: Colors.blue,
-            fontSize: 20,
-            fontWeight: FontWeight.w500,
-          ),
         ),
         actions: [
           IconButton(
@@ -46,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {},
               icon: Icon(
                 Icons.brightness_4_rounded,
-                color: Colors.blue,
                 size: 26,
               ),
           ),

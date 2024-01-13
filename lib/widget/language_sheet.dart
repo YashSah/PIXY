@@ -26,8 +26,8 @@ class _LanguageSheetState extends State<LanguageSheet> {
         right: MediaQuery.of(context).size.width * 0.04,
         top: MediaQuery.of(context).size.width * 0.02
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(15),
           topRight: Radius.circular(15),

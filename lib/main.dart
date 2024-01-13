@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -26,7 +27,26 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'PIXY',
       debugShowCheckedModeBanner: false,
+
+      themeMode: ThemeMode.light,
+
+      //dark
+      darkTheme: ThemeData(
+        useMaterial3: false,
+        brightness: Brightness.dark,
+        appBarTheme: const AppBarTheme(
+          elevation: 1,
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+
+      //light
       theme: ThemeData(
+        useMaterial3: false,
         appBarTheme: const AppBarTheme(
           elevation: 1,
           centerTitle: true,
@@ -42,4 +62,14 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
     );
   }
+}
+
+extension AppTheme on ThemeData{
+  //light text color
+  Color get lightTextColor =>
+      brightness == Brightness.dark ? Colors.white70 : Colors.black54;
+
+  //button color
+  Color get buttonColor =>
+      brightness == Brightness.dark ? Colors.cyan.withOpacity(0.7) : Colors.blue;
 }
