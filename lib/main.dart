@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       title: 'PIXY',
       debugShowCheckedModeBanner: false,
 
-      themeMode: ThemeMode.light,
+      themeMode: Pref.defaultTheme,
 
       //dark
       darkTheme: ThemeData(

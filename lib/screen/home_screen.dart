@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:get/get.dart';
 import 'package:pixy/apis/apis.dart';
 import 'package:pixy/helper/pref.dart';
 import 'package:pixy/model/home_type.dart';
@@ -14,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final _isDarkMode = Get.isDarkMode.obs;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -35,10 +38,18 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             padding: EdgeInsets.only(right: 10),
-              onPressed: () {},
-              icon: Icon(
-                Icons.brightness_4_rounded,
-                size: 26,
+              onPressed: () {
+                Get.changeThemeMode(_isDarkMode.value ? ThemeMode.light : ThemeMode.dark);
+                _isDarkMode.value = !_isDarkMode.value;
+                Pref.isDarkMode = _isDarkMode.value;
+              },
+              icon: Obx(
+                () => Icon(
+                  _isDarkMode.value
+                      ? Icons.brightness_2_rounded
+                      : Icons.brightness_5_rounded,
+                  size: 26,
+                ),
               ),
           ),
         ],
