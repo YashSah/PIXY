@@ -64,6 +64,11 @@ dependencies:
   #for sharing image
   share_plus: ^7.2.1
 
+  # App Write database (for dynamically getting API key)
+  # appwrite: ^11.0.1
+  appwrite:
+    path: ./appwrite
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

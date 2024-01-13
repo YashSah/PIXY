@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:pixy/screen/splash_screen.dart';
 
+import 'apis/app_write.dart';
 import 'helper/pref.dart';
 
 void main() async{
@@ -11,6 +12,8 @@ void main() async{
 
   //initialize hive
   Pref.initialize();
+
+  AppWrite.init();
 
   await SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
   await SystemChrome.setPreferredOrientations(
