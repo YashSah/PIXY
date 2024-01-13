@@ -1,6 +1,12 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pixy/helper/my_dialogs.dart';
+
+import '../apis/apis.dart';
+import 'image_controller.dart';
 
 class TranslateController extends GetxController{
 
@@ -8,6 +14,7 @@ class TranslateController extends GetxController{
   final resultC = TextEditingController();
 
   final from = ''.obs, to = ''.obs;
+  final status = Status.none.obs;
 
   // list of languages available
   final lang = const [
@@ -195,14 +202,44 @@ class TranslateController extends GetxController{
     "Zulu"
   ];
 
-  Future<void> askQuestion() async {
-    if(textC.text.trim().isNotEmpty) {
+  Future<void> translate() async {
+    if(textC.text.trim().isNotEmpty && to.isNotEmpty) {
+      status.value = Status.loading;
 
-      // final res = await APIs.getAnswer(textC.text);
+      String prompt = '';
 
-      textC.clear();
+      if(from.isNotEmpty) {
+        prompt = "Can you translate the given text from ${from.value} to ${to.value} : \n${textC.text}";
+      }
+      else {
+        prompt = "Can you translate the given text to ${to.value} : \n${textC.text}";
+      }
+
+      log(prompt);
+
+      final res = await APIs.getAnswer(prompt);
+      resultC.text =utf8.decode(res.codeUnits);  //ChatGpt uses utf8 encoding so we will require utf8 decoding
+
+      status.value = Status.complete;
+
     } else {
-      MyDialog.info("Looks like you forgot to type something. Please enter a message.");
+      status.value = Status.none;
+
+      if(to.isEmpty) {
+        MyDialog.info('Looks like you forgot to select the "To" language');
+      }
+      if(textC.text.isEmpty) {
+        MyDialog.info("Looks like you forgot to type something. Please enter a message.");
+      }
+    }
+  }
+
+
+  void swapLanguages() {
+    if(to.isNotEmpty && from.isNotEmpty) {
+      final t = to.value;
+      to.value = from.value;
+      from.value = t;
     }
   }
 

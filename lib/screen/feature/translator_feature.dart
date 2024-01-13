@@ -6,6 +6,9 @@ import 'package:pixy/controller/translate_controller.dart';
 import 'package:pixy/widget/custom_btn.dart';
 import 'package:pixy/widget/language_sheet.dart';
 
+import '../../controller/image_controller.dart';
+import '../../widget/custom_loading.dart';
+
 class TranslatorFeature extends StatefulWidget {
   const TranslatorFeature({super.key});
 
@@ -47,11 +50,15 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
                   child: Obx(() => Text(_c.from.isEmpty ? "Auto" : _c.from.value)),
                 ),
               ),
-              
+
+              //swap language button
               IconButton(
-                onPressed: () {},
-                icon: const Icon(CupertinoIcons.repeat),
-                color: Colors.grey,
+                onPressed: _c.swapLanguages,
+                icon: Obx(
+                      () => Icon(CupertinoIcons.repeat,
+                        color: _c.to.isNotEmpty && _c.from.isNotEmpty ? Colors.blue : Colors.grey,
+                      ),
+                ),
               ),
 
               //to language
@@ -92,31 +99,39 @@ class _TranslatorFeatureState extends State<TranslatorFeature> {
           ),
 
           //result field
-          if(_c.resultC.text.isNotEmpty)
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width *0.04,
-            ),
-            child: TextFormField(
-              controller: _c.resultC,
-              maxLines: null,
-              onTapOutside: (e) => FocusScope.of(context).unfocus(),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-          ),
+          Obx(() => _translateResult()),
 
           SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
           
           CustomBtn(
-            onTap: () {},
+            onTap: _c.translate,
             text: "Translate",
           ),
         ],
       ),
     );
   }
+
+  Widget _translateResult() => Align(
+    child: switch(_c.status.value) {
+      Status.none => const SizedBox(),
+      Status.complete => Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width *0.04,
+        ),
+        child: TextFormField(
+          controller: _c.resultC,
+          maxLines: null,
+          onTapOutside: (e) => FocusScope.of(context).unfocus(),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        ),
+      ),
+      Status.loading => const CustomLoading()
+    },
+  );
+
 }
