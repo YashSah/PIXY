@@ -71,11 +71,34 @@ class _ImageFeatureState extends State<ImageFeature> {
 
           Container(
             height: MediaQuery.of(context).size.height * 0.5,
+            margin: EdgeInsets.symmetric(vertical: MediaQuery.of(context).size.height * 0.015),
             alignment: Alignment.center,
             child: Obx(() => _aiImage()),
           ),
           
-          CustomBtn(onTap: _c.createAIImage, text: 'Create'),
+         Obx(() => _c.imageList.isEmpty ? const SizedBox() : SingleChildScrollView(
+           scrollDirection: Axis.horizontal,
+           padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.03),
+           physics: const BouncingScrollPhysics(),
+           child: Wrap(
+             spacing: 10,
+             children: _c.imageList.map((e) =>  InkWell(
+               onTap: () {
+                 _c.url.value = e;
+               },
+               child: ClipRRect(
+                 borderRadius: BorderRadius.all(Radius.circular(8)),
+                 child: CachedNetworkImage(
+                   imageUrl: e,
+                   height: 100,
+                   errorWidget: (context, url, error) => const SizedBox(),
+                 ),
+               ),
+             ),).toList(),
+           ),
+         ),),
+          
+          CustomBtn(onTap: _c.searchAiImage, text: 'Create'),
         ],
       ),
     );
@@ -89,7 +112,7 @@ class _ImageFeatureState extends State<ImageFeature> {
         height: MediaQuery.of(context).size.height * 0.3,
       ),
       Status.complete => CachedNetworkImage(
-        imageUrl: _c.url,
+        imageUrl: _c.url.value,
         placeholder: (context, url) => const CustomLoading(),
         errorWidget: (context, url, error) => const SizedBox(),
       ),
